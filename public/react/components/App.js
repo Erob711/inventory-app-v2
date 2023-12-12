@@ -7,7 +7,6 @@ import EditItem from './EditItem/EditItem.js';
 import LoginSignup from '../pages/adminPage/Login.jsx';
 import CartPage from '../pages/CartPage/CartPage.jsx';
 
-
 export const App = () => {
 	const [items, setItems] = useState([]);
 	// const [user, setUser] = useState(null);
