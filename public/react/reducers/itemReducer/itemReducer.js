@@ -6,6 +6,7 @@ const itemSlice = createSlice({
     initialState: [],
     reducers: {
         setItems(state, action) {
+            // console.log(JSON.parse(JSON.stringify(state)));
             return action.payload
         },
     }
@@ -20,6 +21,32 @@ export const initializeItems = () => {
         dispatch(setItems(items));
     }
 };
+
+export const updateItem = (id, edittedItem, items) => {
+    return async (dispatch) => {
+        try {
+            const itemAfterUpdate = await itemServices.editItem(id, edittedItem);
+            console.log(JSON.parse(JSON.stringify(itemAfterUpdate)));
+            const newItems = items.map((item) => item.id !== id ? item : itemAfterUpdate);
+            dispatch(setItems(newItems));
+        } catch (error) {
+            console.log(error);
+        }
+    }
+}
+
+export const deleteItem = (id, items) => {
+    return async (dispatch) => {
+        try {
+            await itemServices.deleteItem(id);
+            dispatch(setItems(items.filter((item) => item !== items.id)));
+        } catch (error) {
+            console.log(error);
+        }
+    }
+}
+
+
 
 export const { setItems } = itemSlice.actions;
 

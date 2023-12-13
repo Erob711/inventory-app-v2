@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
-import itemServices from '../../services/Item.js';
-
-const EditItem = ({ items, setItems }) => {
+import { useDispatch, useSelector } from "react-redux";
+import { setItems, updateItem } from "../../reducers/itemReducer/itemReducer.js";
+const EditItem = () => {
       //Styling
   const header = {
       textAlign: "center", 
@@ -28,15 +28,21 @@ const EditItem = ({ items, setItems }) => {
       fontSize: "5vh"
   }
 
+
+    const dispatch = useDispatch();
+    const items = useSelector((state) => state.items);
     const navigate = useNavigate();
     const id = useParams().id
     const item = items.find((item) => item.id === Number(id));
 
+    // console.log("items " + items);
     const [name, setName] = useState(item.name);
     const [price, setPrice] = useState(item.price);
     const [description, setDescription] = useState(item.description);
     const [category, setCategory] = useState(item.category);
     const [image, setImage] = useState(item.image);
+
+
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -48,10 +54,9 @@ const EditItem = ({ items, setItems }) => {
           category,
           image,
         };
-    
-        setItems([...items, edittedItem]);
-        console.log(id, edittedItem, 'IN COMPONENT')
-        itemServices.editItem(id, edittedItem);
+        
+        dispatch(updateItem(id, edittedItem, items));
+
         navigate('/');
     }
 
