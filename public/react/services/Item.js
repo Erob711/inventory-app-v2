@@ -1,6 +1,19 @@
 import axios from "axios";
 import apiURL from "../api.js";
 
+
+
+const getItem = async (id) => {
+  try {
+      const response = await axios.get(`${apiURL}/items/${id}`)
+      // console.log(response.data)
+      return response.data
+  }
+  catch(error) {
+      console.log(error.message)
+  }
+};
+
 const getItems = async () => {
     try {
         const response = await axios.get(`${apiURL}/items`)
@@ -33,11 +46,11 @@ const deleteItem = async (id) => {
 
 const editItem = async (id, edittedItem) => {
   try {
-    const response = await axios.put(`${apiURL}/items/${id}`, edittedItem)
+    const response = await axios.put(`${apiURL}/items/${id}`, edittedItem);
     return response.data
   } catch(error) {
     console.log(error.message)
   }
 }
 
-export default { createItem, deleteItem, getItems, editItem };
+export default {getItem, createItem, deleteItem, getItems, editItem };

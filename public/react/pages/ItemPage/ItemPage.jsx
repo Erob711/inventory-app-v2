@@ -1,33 +1,36 @@
 import { Link, useParams, useNavigate } from "react-router-dom";
-import itemsServices from "../../services/Item";
 import userServices from '../../services/User';
+import { useSelector, useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
+import { setItems, deleteItem } from "../../reducers/itemReducer/itemReducer"; 
 import "./ItemPage.css";
-
-const ItemPage = ({ items, setItems, user }) => {
+import itemService from "../../services/Item";
+const ItemPage = ({ user }) => {
+  
+  const [item, setItem] = useState({});
+  const dispatch = useDispatch();
+  const items = useSelector((state) => state.items);
   const id = useParams().id;
-  //let item = items.find((item) => item.id === Number(id));
   const navigate = useNavigate();
 
-  const [item, setItem] = useState({});
-  async function fetchItems() {
+  async function fetchItem() {
 		try {
-			const items = await itemsServices.getItems();
-			setItem(items.find((item) => item.id === Number(id)));
+			const item = await itemService.getItem(id);
+      setItem(item);
 		}
 		catch (error) {
 			console.log(error.message)
 		}
 	}
 	useEffect(() => {
-		fetchItems();
+		fetchItem();
 	}, []);
+  
+
 
 
   const handleDelete = (id) => {
-    const filteredItems = items.filter((item) => item !== items.id);
-    setItems(filteredItems);
-    itemsServices.deleteItem(id);
+    dispatch(deleteItem(id, items));
     navigate("/");
   };
 

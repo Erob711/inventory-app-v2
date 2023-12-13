@@ -13,7 +13,8 @@ const Home = ({ user }) => {
 
 	const dispatch = useDispatch();
 	const items = useSelector((state) => state.items);
-
+	
+	// console.log("items: " + items);
 	const handleSearch = (e) => {
 		e.preventDefault();
 		const searchData = search;
