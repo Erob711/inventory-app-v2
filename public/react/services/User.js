@@ -1,7 +1,7 @@
 import axios from "axios";
 import apiURL from "../api.js";
 
-const getUsers = async (id) => {
+const getUsers = async () => {
     try {
         const response = await axios.get(`${apiURL}/users`);
         console.log(response.data);
@@ -10,6 +10,15 @@ const getUsers = async (id) => {
         console.log(error.message);
     }
 };
+
+const getOne = async (username) => {
+    try {
+        const response = await axios.get(`${apiURL}/users/${username}`);
+        return response.data;
+    } catch(error) {
+        console.log(error.message);
+    }
+}
 
 const getCart = async (id) => {
     try {
@@ -31,4 +40,4 @@ const editCart = async (addOrRemove, userId, itemId) => {
     }
 };
 
-export default { getUsers, getCart, editCart };
+export default { getUsers, getOne, getCart, editCart };

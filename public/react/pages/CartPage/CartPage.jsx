@@ -4,11 +4,12 @@ import userServices from '../../services/User';
 
 const CartPage = () => {
     const [cartItems, setCartItems] = useState([]); 
+    const curUser = JSON.parse(localStorage.getItem('loggedInUser'));
 
     async function fetchCart() {
 		try {
-			const items = await userServices.getCart(1);
-            console.log(items)
+			const items = await userServices.getCart(curUser.id);
+            console.log(items, 'items in cart')
 			setCartItems(items.items)
 		}
 		catch (error) {

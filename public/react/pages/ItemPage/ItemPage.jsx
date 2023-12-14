@@ -2,16 +2,18 @@ import { Link, useParams, useNavigate } from "react-router-dom";
 import userServices from '../../services/User';
 import { useSelector, useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
-import { setItems, deleteItem } from "../../reducers/itemReducer/itemReducer"; 
+import { deleteItem } from "../../reducers/itemReducer/itemReducer"; 
 import "./ItemPage.css";
 import itemService from "../../services/Item";
-const ItemPage = ({ user }) => {
+const ItemPage = () => {
   
   const [item, setItem] = useState({});
   const dispatch = useDispatch();
   const items = useSelector((state) => state.items);
   const id = useParams().id;
   const navigate = useNavigate();
+  const curUser = JSON.parse(localStorage.getItem('loggedInUser'));
+
 
   async function fetchItem() {
 		try {
@@ -60,9 +62,9 @@ const ItemPage = ({ user }) => {
           <div className="buttons">
             <Link to={`/editItem/${id}`} className="link"><button id="edit-btn">Edit</button></Link>
             <button onClick={() => handleDelete(item.id)} id="delete-btn">Delete</button>
-            {user && <>
-                <button onClick={() => handleAddToCart('add', 1, item.id)}>Add to Cart</button>
-                <button onClick={() => handleRemoveFromCart('remove', 1, item.id)}>Remove from Cart</button>
+            {curUser && <>
+                <button onClick={() => handleAddToCart('add', curUser.id, item.id)}>Add to Cart</button>
+                <button onClick={() => handleRemoveFromCart('remove', curUser.id, item.id)}>Remove from Cart</button>
             </> }
             <Link to="/" className="link"><button>Back to Main Page</button></Link>
           </div>

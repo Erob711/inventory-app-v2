@@ -16,6 +16,8 @@ export const App = () => {
 		return localData ? JSON.parse(localData) : null;
 	});
 
+	console.log(user)
+
 	return (
 		<Routes>
 			<Route path="/" element={<Home items={items} setItems={setItems} user={user} />} />

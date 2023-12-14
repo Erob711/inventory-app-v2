@@ -9,6 +9,9 @@ const itemSlice = createSlice({
             // console.log(JSON.parse(JSON.stringify(state)));
             return action.payload
         },
+        appendItem(state, action) {
+            state.push(action.payload)
+        }
     }
 });
 
@@ -19,6 +22,17 @@ export const initializeItems = () => {
     return async (dispatch) => {
         const items = await itemServices.getItems();
         dispatch(setItems(items));
+    }
+};
+
+export const addItem = (item) => {
+    return async (dispatch) => {
+        try {
+            const newItem = itemServices.createItem(item);
+            dispatch(appendItem(newItem));
+        } catch(error) {
+            console.log(error);
+        }
     }
 };
 

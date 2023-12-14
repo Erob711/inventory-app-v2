@@ -1,8 +1,9 @@
 import { useState } from "react";
-import itemServices from "../../services/Item";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { addItem } from "../../reducers/itemReducer/itemReducer";
 
-const AddItem = ({items, setItems}) => {
+const AddItem = () => {
   //Styling
   const header = {
       textAlign: "center", 
@@ -29,6 +30,7 @@ const AddItem = ({items, setItems}) => {
   }
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const [name, setName] = useState("");
   const [price, setPrice] = useState(0);
@@ -47,8 +49,8 @@ const AddItem = ({items, setItems}) => {
       image,
     };
 
-    setItems([...items, newItem]);
-    itemServices.createItem(newItem);
+    dispatch(addItem(newItem));
+
     setName("");
     setPrice(0);
     setDescription("");

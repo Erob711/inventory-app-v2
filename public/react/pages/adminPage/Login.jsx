@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import { Link, useNavigate } from 'react-router-dom';
 import './Login.css';
+import userServices from '../../services/User';
 
 // import user from '../pages/adminPage/user.png';
 import user from './user.png';
@@ -16,15 +17,17 @@ const LoginSignup = ({ user, setUser }) => {
 
     const navigate = useNavigate();
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         const incomingUser = {
             username,
             password
         };
 
-        setUser(incomingUser);
-        window.localStorage.setItem('loggedInUser', JSON.stringify(incomingUser))
+        const loggedInUser = await userServices.getOne(incomingUser.username);
+
+        setUser(loggedInUser);
+        window.localStorage.setItem('loggedInUser', JSON.stringify(loggedInUser))
         navigate('/');
     }
 
