@@ -1,107 +1,71 @@
-import { useState } from "react";
-import { useParams, useNavigate, Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { setItems, updateItem } from "../../reducers/itemReducer/itemReducer.js";
+import { useParams, Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import useEditItem from "../../customHooks/useEditItem.js";
+import useField from "../../customHooks/useField.js";
+import "./EditItem.css";
 const EditItem = () => {
-      //Styling
-  const header = {
-      textAlign: "center", 
-      fontSize: "5vh"
-  }
-  const formStyle = {
-      display: "flex",
-      flexDirection: "column",
-      boxSizing: "border-box",
-      justifyContent: "space-between",
-      alignItems: "center",
-      height: "80vh",
-      margin: "5px"
-  }
-  const inputStyle = {
-    display: "flex",
-    height: "10vh",
-    width: "90vw",
-    fontSize: "8vh"
-  }
-  const submitStyle = {
-      height: "15vh",
-      fontSize: "5vh"
-  }
 
-
-    const dispatch = useDispatch();
     const items = useSelector((state) => state.items);
-    const navigate = useNavigate();
     const id = useParams().id
     const item = items.find((item) => item.id === Number(id));
 
-    // console.log("items " + items);
-    const [name, setName] = useState(item.name);
-    const [price, setPrice] = useState(item.price);
-    const [description, setDescription] = useState(item.description);
-    const [category, setCategory] = useState(item.category);
-    const [image, setImage] = useState(item.image);
+    const name = useField("text", item.name);
+    const price = useField("text", item.price);
+    const description = useField("text", item.description);
+    const category = useField("text", item.category);
+    const image = useField("text", item.image);
 
-
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-
-        const edittedItem = {
-          name,
-          price,
-          description,
-          category,
-          image,
-        };
-        
-        dispatch(updateItem(id, edittedItem, items));
-
-        navigate('/');
-    }
+    const edittedItem = {
+      name: name.value,
+      price: price.value,
+      description: description.value,
+      category: category.value,
+      image: image.value,
+    };
+    const editItem = useEditItem(id, edittedItem, items);
 
     return (
         <>
-          <h1 style={header}>Edit Item</h1>
-          <form onSubmit={handleSubmit} style={formStyle}>
+          <h1 className="header">Edit Item</h1>
+          <form onSubmit={editItem} className="form">
             <input
-              type="text"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              style={inputStyle}
+              type={name.inputType}
+              value={name.value}
+              onChange={name.onChange}
+              className="input"
             />
     
             <input
-              type="text"
-              value={price}
-              onChange={(e) => setPrice(e.target.value)}
-              style={inputStyle}
+              type={price.inputType}
+              value={price.value}
+              onChange={price.onChange}
+              className="input"
             />
     
             <input
-              type="text"
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              style={inputStyle}
+              type={description.inputType}
+              value={description.value}
+              onChange={description.onChange}
+              className="input"
             />
     
             <input
-              type="text"
-              value={category}
-              onChange={(e) => setCategory(e.target.value)}
-              style={inputStyle}
+              type={category.inputType}
+              value={category.value}
+              onChange={category.onChange}
+              className="input"
             />
     
             <input
-              type="text"
-              value={image}
-              onChange={(e) => setImage(e.target.value)}
-              style={inputStyle}
+              type={image.inputType}
+              value={image.value}
+              onChange={image.onChange}
+              className="input"
             />
     
-            <button type="submit" style={submitStyle}>Submit</button>
+            <button type="submit" className="submit">Submit</button>
           </form>
-          <Link to={`/${id}`}><button style={submitStyle}>Back To Item</button></Link>
+          <Link to={`/${id}`}><button className="submit">Back To Item</button></Link>
         </>
     )
 };
