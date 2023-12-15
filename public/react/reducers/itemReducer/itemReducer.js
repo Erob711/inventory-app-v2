@@ -29,7 +29,8 @@ export const addItem = (item) => {
     return async (dispatch) => {
         try {
             const newItem = itemServices.createItem(item);
-            dispatch(appendItem(newItem));
+            //REDUX flags line 33 if newItem is not 'serialized'. 
+            dispatch(appendItem(JSON.stringify(newItem)));
         } catch(error) {
             console.log(error);
         }
@@ -62,6 +63,6 @@ export const deleteItem = (id, items) => {
 
 
 
-export const { setItems } = itemSlice.actions;
+export const { setItems, appendItem } = itemSlice.actions;
 
 export default itemSlice.reducer;
