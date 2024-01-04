@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import { deleteItem } from "../../reducers/itemReducer/itemReducer"; 
 import "./ItemPage.css";
 import itemService from "../../services/Item";
+
 const ItemPage = () => {
   
   const [item, setItem] = useState({});
@@ -25,7 +26,7 @@ const ItemPage = () => {
 		}
 	}
 	useEffect(() => {
-		fetchItem();
+    fetchItem();
 	}, []);
   
 

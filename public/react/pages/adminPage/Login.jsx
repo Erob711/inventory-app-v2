@@ -26,9 +26,15 @@ const LoginSignup = ({ user, setUser }) => {
 
         const loggedInUser = await userServices.getOne(incomingUser.username);
 
-        setUser(loggedInUser);
-        window.localStorage.setItem('loggedInUser', JSON.stringify(loggedInUser))
-        navigate('/');
+        if(loggedInUser) {
+            setUser(loggedInUser);
+            window.localStorage.setItem('loggedInUser', JSON.stringify(loggedInUser))
+            navigate('/');
+        } else {
+            setUsername('');
+            setPassword('');
+            alert('User not found');
+        }
     }
 
     const handleLogout = () => {
@@ -69,7 +75,10 @@ const LoginSignup = ({ user, setUser }) => {
             <button type="submit">Login</button>
         </form>
         :
-        <button onClick={handleLogout}>Logout</button>
+        <>
+            <h3>{user.username} is currently logged in</h3>
+            <button onClick={handleLogout}>Logout</button>
+        </>
         }
           {/* <div className="container">
             <div className= "header">

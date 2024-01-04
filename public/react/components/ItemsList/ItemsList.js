@@ -1,10 +1,8 @@
 import React from "react";
 import { Item } from "../Item/Item.js";
 import './ItemsList.css';
-import { useSelector } from "react-redux";
 
-export const ItemsList = () => {
-  const items = useSelector((state) => state.items);
+export const ItemsList = ({ items }) => {
   if (!items) {
     return <h1>no Items</h1>;
   } else {

@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { ItemsList } from "../../components/ItemsList/ItemsList";
-import ItemServices from '../../services/Item.js';
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { initializeItems } from "../../reducers/itemReducer/itemReducer";
