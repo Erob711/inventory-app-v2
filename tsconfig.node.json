@@ -1,0 +1,11 @@
+{
+    "compilerOptions": {
+      // DELETE BELOW LINE LATER. THIS IS ONLY TEMP FOR WHEN WE HAVE BOTH TSX AND JSX 
+      "jsx": "react",
+      "composite": true,
+      "skipLibCheck": true,
+      "module": "ESNext",
+      "moduleResolution": "bundler",
+      "allowSyntheticDefaultImports": true
+    }
+}

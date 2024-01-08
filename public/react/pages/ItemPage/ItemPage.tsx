@@ -5,18 +5,33 @@ import { useState, useEffect } from "react";
 import { deleteItem } from "../../reducers/itemReducer/itemReducer"; 
 import "./ItemPage.css";
 import itemService from "../../services/Item";
+import { ItemObj, UserObj } from "../../types";
+import React from "react";
 
 const ItemPage = () => {
   
-  const [item, setItem] = useState({});
+  // TS throws error if we dont initialize all of these keys
+  const [item, setItem] = useState<ItemObj>({
+    id: NaN,
+    name: "",
+    price: NaN,
+    description: "",
+    category: "",
+    image: ""
+  });
+
   const dispatch = useDispatch();
-  const items = useSelector((state) => state.items);
-  const id = useParams().id;
+  // once you refactor the store.tsx, change this back to this below
+  // const items: ItemObj[] = useSelector((state) => state.items);
+
+  // in the meantime, we specify that the state has an items property of ItemObj[] type
+  const items: ItemObj[] = useSelector((state: { items: ItemObj[] }) => state.items);
+  const id: string = useParams().id;
   const navigate = useNavigate();
-  const curUser = JSON.parse(localStorage.getItem('loggedInUser'));
+  const curUser: UserObj = JSON.parse(localStorage.getItem('loggedInUser'));
 
 
-  async function fetchItem() {
+  async function fetchItem(): Promise<void> {
 		try {
 			const item = await itemService.getItem(id);
       setItem(item);
@@ -32,17 +47,17 @@ const ItemPage = () => {
 
 
 
-  const handleDelete = (id) => {
+  const handleDelete = (id: number) => {
     dispatch(deleteItem(id, items));
     navigate("/");
   };
 
-  const handleAddToCart = (removeOrAdd, userId, itemId) => {
+  const handleAddToCart = (removeOrAdd: string, userId: number, itemId: number) => {
     userServices.editCart(removeOrAdd, userId, itemId)
     alert('added to cart')
   }
 
-  const handleRemoveFromCart = (removeOrAdd, userId, itemId) => {
+  const handleRemoveFromCart = (removeOrAdd: string, userId: number, itemId: number) => {
     userServices.editCart(removeOrAdd, userId, itemId)
     alert('removed from cart')
   }

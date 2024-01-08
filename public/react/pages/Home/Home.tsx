@@ -1,28 +1,31 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { ItemsList } from "../../components/ItemsList/ItemsList";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { initializeItems } from "../../reducers/itemReducer/itemReducer";
 import './Home.css';
-import inventory from './inventory.jpg';
+import { ItemObj, UserObj } from "../../types";
 
-const Home = ({ user }) => {
+interface Props {
+	user: UserObj
+} 
+
+const Home = ({ user } : Props) => {
 	const [search, setSearch] = useState('');
 	const [showAll, setShowAll] = useState(true);
 
 	const dispatch = useDispatch();
-	const items = useSelector((state) => state.items);
+	const items = useSelector((state: { items: ItemObj[] }) => state.items);
 	
-	// console.log("items: " + items);
-	const handleSearch = (e) => {
+	const handleSearch = (e: React.SyntheticEvent) => {
 		e.preventDefault();
-		const searchData = search;
+		const searchData: string = search;
 		setSearch(searchData);
 		// fixes bug i had where hitting enter would sometimes show all instead of filter results
 		showAll ? setShowAll(!showAll) : setShowAll(showAll);
 	};
 
-	const itemsToShow = showAll
+	const itemsToShow: ItemObj[] = showAll
     ? items
     : items.filter((item) =>
         item.name.toLowerCase().includes(search.toLowerCase())
@@ -67,7 +70,7 @@ const Home = ({ user }) => {
         	<h2>All Items:</h2>
 		  </div>
 		  <div className="home-img">
-			<img src={inventory}/>
+			<img src={require('./inventory.jpg')} alt=""/>
 		  </div>
 		</section>
 		<Link to='/newItem' className= "btn">Post New Item</Link>

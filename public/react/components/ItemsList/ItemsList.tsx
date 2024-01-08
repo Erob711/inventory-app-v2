@@ -1,8 +1,13 @@
 import React from "react";
-import { Item } from "../Item/Item.js";
+import { Item } from "../Item/Item";
 import './ItemsList.css';
+import { ItemObj } from "../../types.js";
 
-export const ItemsList = ({ items }) => {
+interface Props {
+  items: ItemObj[]
+}
+
+export const ItemsList = ({ items } : Props) => {
   if (!items) {
     return <h1>no Items</h1>;
   } else {
