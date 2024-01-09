@@ -33,6 +33,7 @@ const Home = ({ user } : Props) => {
 
 	const showBtn = () => {
 		setShowAll(true);
+		setSearch('');
 	};
 
 	useEffect(() => {
@@ -40,13 +41,13 @@ const Home = ({ user } : Props) => {
 	}, []);
 
     return (
-    <main>
+    <div>
 		<header>
 			<a href="#" className="logo">
 			<h1>CELC Inc.</h1></a>
 		<ul className="navbar">
-			<li><a href="#home" className="active">Home</a></li>
-			<li><Link to="/login" className= "active">Admin</Link></li>
+			<li><Link to="/" className= "active">Home</Link></li>
+			<li><Link to="/login" className= "active">Login</Link></li>
 			{ user && <li><Link to="/cart" className= "active">Cart</Link></li>}
 		</ul>
 
@@ -64,7 +65,7 @@ const Home = ({ user } : Props) => {
 			<a href="#">cart</a>
 		</div>
 		</header>
-		<body>
+		<main>
 		<section className="home">
 		  <div className="home-text">
         	<h2>All Items:</h2>
@@ -75,8 +76,8 @@ const Home = ({ user } : Props) => {
 		</section>
 		<Link to='/newItem' className= "btn">Post New Item</Link>
         <ItemsList items={itemsToShow} />
-		</body>
-    </main>
+		</main>
+    </div>
     )
 };
 

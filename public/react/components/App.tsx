@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { Routes, Route } from "react-router-dom";
 import Home from '../pages/Home/Home';
 import ItemPage from '../pages/ItemPage/ItemPage';
-import AddItem from './AddItem/AddItem.js';
-import EditItem from './EditItem/EditItem.js';
-import LoginSignup from '../pages/adminPage/Login.jsx';
-import CartPage from '../pages/CartPage/CartPage.jsx';
+import AddItem from './AddItem/AddItem';
+import EditItem from './EditItem/EditItem';
+import LoginPage from '../pages/LoginPage/Login';
+import CartPage from '../pages/CartPage/CartPage';
 import { ItemObj, UserObj } from '../types.js';
 
 export const App = () => {
@@ -26,9 +26,9 @@ export const App = () => {
 		<Routes>
 			<Route path="/" element={<Home user={user} />} />
 			<Route path="/:id" element={<ItemPage />}/>
-			<Route path="/newItem" element={<AddItem items={items} setItems={setItems} />}/>
-			<Route path="/editItem/:id" element={<EditItem items={items} setItems={setItems} />}/>
-			<Route path="/login" element={<LoginSignup user={user} setUser={setUser} />} />
+			<Route path="/newItem" element={<AddItem />}/>
+			<Route path="/editItem/:id" element={<EditItem />}/>
+			<Route path="/login" element={<LoginPage user={user} setUser={setUser} />} />
 			<Route path="/cart" element={<CartPage />} />
 		</Routes>
 	)

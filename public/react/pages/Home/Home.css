@@ -15,7 +15,7 @@
     --h2-font: 2.2rem;
     --p-font: 1rem;
 }
-body{
+main{
     color: var(--text-color);
     background: var(--bg--color);
 }

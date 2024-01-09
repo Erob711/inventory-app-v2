@@ -1,3 +1,5 @@
+import { ChangeEventHandler } from 'react';
+
 export interface ItemObj {
     id: number,
     name: string,
@@ -7,7 +9,7 @@ export interface ItemObj {
     image: string
 }
 
-export type IncomingItem = Omit<ItemObj, 'id'>
+export type IncomingItemObj = Omit<ItemObj, 'id'>
 
 export interface UserObj {
     id: number,
@@ -16,6 +18,14 @@ export interface UserObj {
     items: ItemObj[]
 }
 
+export type IncomingUserObj = Omit<UserObj, 'id' | 'items'>
+
 export interface ReturnMsg {
     message: string
+}
+
+export interface UseFieldReturn {
+    inputType: string,
+    value: string | number,
+    onChange: ChangeEventHandler<HTMLInputElement>
 }

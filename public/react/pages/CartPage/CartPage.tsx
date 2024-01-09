@@ -1,19 +1,21 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from 'react-router-dom';
 import userServices from '../../services/User';
+import { ItemObj, UserObj } from "../../types";
 
 const CartPage = () => {
-    const [cartItems, setCartItems] = useState([]); 
-    const curUser = JSON.parse(localStorage.getItem('loggedInUser'));
+    const [cartItems, setCartItems] = useState<ItemObj[]>([]); 
+    const curUser: UserObj = JSON.parse(localStorage.getItem('loggedInUser'));
 
-    async function fetchCart() {
+    async function fetchCart(): Promise<void> {
 		try {
-			const items = await userServices.getCart(curUser.id);
-            console.log(items, 'items in cart')
-			setCartItems(items.items)
+			const fetchedUser = await userServices.getCart(curUser.id);
+			setCartItems(fetchedUser.items)
 		}
 		catch (error) {
-			console.log(error.message)
+            if(error instanceof Error) console.log(error.message)
+
+            throw error;
 		}
 	}
 

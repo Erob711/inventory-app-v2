@@ -1,4 +1,4 @@
-let apiURL;
+let apiURL: string;
 
 // // node / express backend
 // if (process.env.NODE_ENV === 'development') {

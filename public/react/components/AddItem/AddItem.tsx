@@ -1,21 +1,25 @@
 import useField  from "../../customHooks/useField";
 import useAddItem from "../../customHooks/useAddItem";
 import "./AddItem.css";
+import React from "react";
+import { IncomingItemObj, UseFieldReturn } from "../../types";
+
 const AddItem = () => {
 
-  const name = useField("text", "");
-  const price = useField("text", "0");
-  const description = useField("text", "");
-  const category = useField("text", "");
-  const image = useField("text", "");
+  const name: UseFieldReturn = useField("text", "");
+  const price: UseFieldReturn = useField("text", "0");
+  const description: UseFieldReturn = useField("text", "");
+  const category: UseFieldReturn = useField("text", "");
+  const image: UseFieldReturn = useField("text", "");
 
-  const newItem = {
-    name: name.value,
-    price: price.value,
-    description: description.value,
-    category: category.value,
-    image: image.value,
+  const newItem: IncomingItemObj = {
+    name: String(name.value),
+    price: Number(price.value),
+    description: String(description.value),
+    category: String(category.value),
+    image: String(image.value),
   };
+  
   const addItem = useAddItem(newItem);
 
   return (

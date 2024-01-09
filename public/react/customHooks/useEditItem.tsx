@@ -1,14 +1,14 @@
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { updateItem } from "../reducers/itemReducer/itemReducer";
-const useEditItem = (id, newItem, items) => {
+import { ItemObj, IncomingItemObj } from "../types";
+
+const useEditItem = (id: string, newItem: IncomingItemObj, items: ItemObj[]) => {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    console.log("new item: " + newItem);
-
-    const editItem = (e) => {
+    const editItem = (e: React.SyntheticEvent): void => {
         e.preventDefault();
         dispatch(updateItem(id, newItem, items));
         navigate("/");
