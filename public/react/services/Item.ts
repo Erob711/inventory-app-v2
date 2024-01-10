@@ -33,9 +33,9 @@ const getItem = async (id: number | string): Promise<ItemObj> => {
 const createItem = async (newItem): Promise<ItemObj> => {
   try {
     // node / express version
-    // const response = await axios.post(`${apiURL}/items`, newItem);
+    const response = await axios.post(`${apiURL}/items`, newItem);
     // django version -- needs trailing backslash on POST route
-    const response = await axios.post(`${apiURL}/items/`, newItem);
+    // const response = await axios.post(`${apiURL}/items/`, newItem);
     console.log(response.data);
     return response.data;
   } catch (error) {

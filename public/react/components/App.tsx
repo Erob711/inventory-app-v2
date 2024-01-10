@@ -6,11 +6,9 @@ import AddItem from './AddItem/AddItem';
 import EditItem from './EditItem/EditItem';
 import LoginPage from '../pages/LoginPage/Login';
 import CartPage from '../pages/CartPage/CartPage';
-import { ItemObj, UserObj } from '../types.js';
+import { UserObj } from '../types.js';
 
 export const App = () => {
-	const [items, setItems] = useState<ItemObj[]>([]);
-
 	const [user, setUser] = useState<UserObj | null>(null);
 
 	useEffect(() => {

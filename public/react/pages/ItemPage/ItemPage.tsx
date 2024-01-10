@@ -47,9 +47,9 @@ const ItemPage = () => {
 
 
 
-  const handleDelete = (id: number) => {
-    dispatch(deleteItem(id, items));
-    navigate("/");
+  const handleDelete = async (id: number) => {
+    await dispatch(deleteItem(id, items));
+    navigate('/');
   };
 
   const handleAddToCart = (removeOrAdd: string, userId: number, itemId: number) => {

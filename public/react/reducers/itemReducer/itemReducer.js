@@ -22,6 +22,7 @@ export const initializeItems = () => {
     return async (dispatch) => {
         const items = await itemServices.getItems();
         dispatch(setItems(items));
+        console.log("dispatch init hit")
     }
 };
 

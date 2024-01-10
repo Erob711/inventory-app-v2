@@ -1,4 +1,4 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { addItem } from "../reducers/itemReducer/itemReducer";
 import { IncomingItemObj } from "../types";
@@ -8,11 +8,9 @@ const useAddItem = (newItem: IncomingItemObj) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    console.log("new item: " + newItem);
-
-    const sendItem = (e: React.SyntheticEvent): void => {
+    const sendItem = async (e: React.SyntheticEvent): Promise<void> => {
         e.preventDefault();
-        dispatch(addItem(newItem));
+        await dispatch(addItem(newItem));
         navigate("/");
     }
     return sendItem;

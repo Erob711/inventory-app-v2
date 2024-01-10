@@ -8,9 +8,9 @@ const useEditItem = (id: string, newItem: IncomingItemObj, items: ItemObj[]) => 
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const editItem = (e: React.SyntheticEvent): void => {
+    const editItem = async (e: React.SyntheticEvent): Promise<void> => {
         e.preventDefault();
-        dispatch(updateItem(id, newItem, items));
+        await dispatch(updateItem(id, newItem, items));
         navigate("/");
     }
     return editItem;
