@@ -7,6 +7,8 @@ if (process.env.NODE_ENV === 'development') {
   apiURL = 'https://inventory-app-d2ik.onrender.com';
 }
 
+
+
 // will be using this for Django backend. Change the url here to switch from node backend to django backend
 // !!!! CHANGE the url path in ItemService create function when making the switch to django as well
 // apiUrl = 'http://localhost:8000'
