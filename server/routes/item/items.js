@@ -5,14 +5,14 @@ const { check, validationResult } = require('express-validator');
 
 // GET /sauce
 
-// itemsRouter.get("/", async (req, res, next) => {
-//   try {
-//     const items = await Item.findAll();
-//     res.send(items);
-//   } catch (error) {
-//     next(error);
-//   }
-// });
+itemsRouter.get("/", async (req, res, next) => {
+  try {
+    const items = await Item.findAll();
+    res.send(items);
+  } catch (error) {
+    next(error);
+  }
+});
 
 itemsRouter.get("/:id", async (req, res, next) => {
   try {
