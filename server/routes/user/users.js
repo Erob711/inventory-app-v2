@@ -1,4 +1,5 @@
 const express = require("express");
+const bcrypt = require("bcrypt");
 const usersRouter  = express.Router();
 const { User, Item } = require("../../models");
 // const { check, validationResult } = require('express-validator');
@@ -47,12 +48,27 @@ usersRouter.put("/editCart/:removeOrAdd/:userId/:itemId", async (req, res, next)
 });
 
 usersRouter.post("/", async (req, res, next) => {
-  try{
-    const newUser = await User.create(req.body);
-    res.json(newUser);
-  }
-  catch(error){
-    next(error);
+
+  const { username, password } = req.body;
+
+  if(!password) {
+    res.status(400).send({ error: `Must enter a valid password` });
+  } else {
+    const saltRounds = 10;
+    const passwordHash = await bcrypt.hash(password, saltRounds);
+
+    const user = {
+      username,
+      passwordHash
+    };
+
+    try{
+      const newUser = await User.create(user);
+      res.json(newUser);
+    }
+    catch(error){
+      next(error);
+    }
   }
 });
 

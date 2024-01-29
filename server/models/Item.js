@@ -5,7 +5,8 @@ const Item = db.define("items", {
   price: DataTypes.INTEGER,
   description: DataTypes.STRING,
   category: DataTypes.STRING,
-  image: DataTypes.STRING
+  image: DataTypes.STRING,
+  sampleSensitiveInfo: DataTypes.STRING
 });
 
 module.exports = Item;

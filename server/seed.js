@@ -1,3 +1,5 @@
+const bcrypt = require("bcrypt");
+
 // replace with items later
 const { items, users } = require('./seedData.js');
 
@@ -12,6 +14,12 @@ const seed = async () => {
 
     // insert data
     const itemArr = await Item.bulkCreate(items);
+
+    // this just hashes the passwords of the seed users for uniformity between seed data and user data created on client
+    for (const user of users){
+      user.passwordHash = await bcrypt.hash(user.passwordHash, 10);
+    }
+
     const userArr = await User.bulkCreate(users);
 
     await userArr[0].setItems(itemArr[0]);

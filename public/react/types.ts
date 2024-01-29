@@ -29,3 +29,8 @@ export interface UseFieldReturn {
     value: string | number,
     onChange: ChangeEventHandler<HTMLInputElement>
 }
+
+export interface SuccessfulLogin {
+    token: string,
+    username: string
+}
