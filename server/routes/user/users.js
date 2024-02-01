@@ -7,6 +7,7 @@ const { User, Item } = require("../../models");
 usersRouter.get("/", async (req, res, next) => {
   try {
     const users = await User.findAll();
+    // maybe use typescript omit type to return all users but no hashed passwords would be easier
     res.send(users);
   } catch (error) {
     next(error);
@@ -17,6 +18,8 @@ usersRouter.get("/:username", async (req, res, next) => {
   try {
     // const user = await User.findByPk(req.params.id);
     const user = await User.findOne({ where : { username : req.params.username } });
+    // eventually fix this to not include hashedPassword at all
+    // res.send({ id: user.id, username: user.username})
     res.send(user);
   } catch (error) {
     next(error);
@@ -64,6 +67,8 @@ usersRouter.post("/", async (req, res, next) => {
 
     try{
       const newUser = await User.create(user);
+      // eventually fix this to not include hashedPassword at all
+      // res.send({ id: newUser.id, username: newUser.username})
       res.json(newUser);
     }
     catch(error){

@@ -22,6 +22,7 @@
     "eslint": "^8.55.0",
     "express": "^4.17.1",
     "express-validator": "^7.0.1",
+    "jsonwebtoken": "^9.0.2",
     "morgan": "1.10.0",
     "nodemon": "^2.0.19",
     "parcel": "^2.8.3",

@@ -4,6 +4,12 @@ const { Item } = require("../../models");
 const { check, validationResult } = require('express-validator');
 const { encrypt, decrypt } = require("../../utils/helperFunctions");
 
+// Authorization is complete, it just needs to implemented on the routes that need it
+// The request.authroization.header is expected to both exist and be in the below format:
+// Bearer <token>
+// const authorize = require('../../utils/middleware/authorize');
+// ex. itemsRouter.get("/", authorize, ...) {}
+
 // GET /sauce
 itemsRouter.get("/", async (req, res, next) => {
   try {
