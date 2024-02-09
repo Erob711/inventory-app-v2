@@ -5,6 +5,10 @@ const User = require('../../models/User');
 const config = require('../../utils/config');
 const jwt = require("jsonwebtoken");
 
+// if you wish to use JWT, keep this route
+
+// if you wish to use Auth0, delete this and use their pre-build login URL
+
 // we are not creating a new user here, but instead creating a new instance of a loggedIn user, which will have data such as JWT tokens attatched to it
 loginRouter.post('/', async (req, res, next) => {
   const { username, password } = req.body;

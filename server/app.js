@@ -5,6 +5,36 @@ const app = express();
 const morgan = require('morgan');
 const path = require('path');
 const cors = require('cors');
+const envConfig = require('./utils/config');
+
+// remove lines 12 - 37 if you do not intend to use auth0
+
+const { auth } = require('express-openid-connect');
+const { requiresAuth } = require('express-openid-connect');
+
+const config = {
+  authRequired: false,
+  auth0Logout: true,
+  secret: envConfig.SECRET,
+  baseURL: 'http://localhost:3000',
+  clientID: envConfig.CLIENT_ID,
+  issuerBaseURL: 'https://dev-fq1yk1ddeodd2ai7.us.auth0.com'
+};
+
+// auth router attaches /login, /logout, and /callback routes to the baseURL
+// must be mounted before any routes
+app.use(auth(config));
+
+// req.isAuthenticated is provided from the auth router
+// this doesn't need to be at the base url level, but will be for now
+app.get('/', (req, res) => {
+  res.send(req.oidc.isAuthenticated() ? 'Auth0: Logged in' : 'Auth0: Logged out');
+});
+
+// fetches auth0 user object
+app.get('/profile', requiresAuth(), (req, res) => {
+  res.send(JSON.stringify(req.oidc.user));
+});
 
 //Allow CORS requests
 app.use(cors());

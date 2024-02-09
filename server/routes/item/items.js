@@ -4,11 +4,16 @@ const { Item } = require("../../models");
 const { check, validationResult } = require('express-validator');
 const { encrypt, decrypt } = require("../../utils/helperFunctions");
 
-// Authorization is complete, it just needs to implemented on the routes that need it
+// JWT Authorization is complete, it just needs to implemented on the routes that need it
 // The request.authroization.header is expected to both exist and be in the below format:
 // Bearer <token>
 // const authorize = require('../../utils/middleware/authorize');
 // ex. itemsRouter.get("/", authorize, ...) {}
+
+// Auth0 is complete as well. If you use Auth0 instead,
+// protect the routes you want proteced like so
+// by requiring: const { requiresAuth } = require('express-openid-connect')
+// and mounting the middleware in each route like so: ('/', requiresAuth(), (req, res) => { ...
 
 // GET /sauce
 itemsRouter.get("/", async (req, res, next) => {
